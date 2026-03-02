@@ -1,0 +1,37 @@
+package com.springtest1.springtest1.major;
+
+import jakarta.persistence.*;
+
+
+
+@Entity
+
+@Table(name = "majors")
+public class Major {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true)
+    private String name;
+
+    private String description;
+
+    public Major() {}
+
+    public Major(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public int getId() { return id; }
+
+    public String getName() { return name; }
+
+    public String getDescription() { return description; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setDescription(String description) { this.description = description; }
+}
