@@ -24,7 +24,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install
-
+    - name: Debug - List target directory
+      run: find target -name "*.xml" -type f 2>/dev/null || echo "No XML files found in target"
     # Optional: Keep test results (surefire report files are under target/surefire-reports)
     - name: Test Report
       uses: dorny/test-reporter@v2
