@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class EnrollmentServiceTest {
@@ -45,6 +46,7 @@ class EnrollmentServiceTest {
         MockitoAnnotations.openMocks(this);
 
         major = new Major("IT", "Information Technology");
+        major.setId(1); // Set ID
 
         student = new Student(
                 "Ahmed",
@@ -52,11 +54,13 @@ class EnrollmentServiceTest {
                 "0790000000",
                 LocalDate.of(2000, 1, 1)
         );
+        student.setId(1); // Set ID
 
         course = new Course();
         course.setName("Java");
         course.setHours(3);
         course.setMajor(major);
+        course.setId(1); // Set ID
 
         enrollment = new Enrollment();
         enrollment.setStudent(student);
@@ -66,8 +70,6 @@ class EnrollmentServiceTest {
         enrollment.setSemester("1");
         enrollment.setYear(2024);
     }
-
-    // ================= CREATE =================
 
     @Test
     void enrollStudent_success() {
@@ -151,8 +153,6 @@ class EnrollmentServiceTest {
                 () -> enrollmentService.enrollStudent(enrollment));
     }
 
-    // ================= GET =================
-
     @Test
     void getStudentEnrollments_success() {
         List<Enrollment> enrollments = new ArrayList<>();
@@ -174,8 +174,6 @@ class EnrollmentServiceTest {
 
         assertEquals(0, result.size());
     }
-
-    // ================= FULL UPDATE =================
 
     @Test
     void updateEnrollment_success() {
@@ -207,8 +205,6 @@ class EnrollmentServiceTest {
         assertThrows(IllegalStateException.class,
                 () -> enrollmentService.updateEnrollment(1, new Enrollment()));
     }
-
-    // ================= PARTIAL UPDATE =================
 
     @Test
     void partialUpdateEnrollment_updateGradeOnly() {
@@ -280,8 +276,6 @@ class EnrollmentServiceTest {
         assertThrows(IllegalStateException.class,
                 () -> enrollmentService.partialUpdateEnrollment(1, new Enrollment()));
     }
-
-    // ================= DELETE =================
 
     @Test
     void deleteEnrollment_success() {

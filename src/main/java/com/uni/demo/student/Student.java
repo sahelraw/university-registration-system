@@ -87,6 +87,10 @@ public class Student {
         this.dob = dob;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
