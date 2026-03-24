@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     env:
@@ -16,21 +15,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
-      run: mvn clean install
+      # We use -f to tell Maven the pom.xml is inside the subfolder
+      run: mvn -f university-registration-system/pom.xml clean install
+
     - name: Debug - List target directory
-      run: find target -name "*.xml" -type f 2>/dev/null || echo "No XML files found in target"
-    # Optional: Keep test results (surefire report files are under target/surefire-reports)
+      # This helps us see if the files exist if it fails again
+      run: find university-registration-system/target -name "*.xml" -type f 2>/dev/null || echo "No XML files found"
+
     - name: Test Report
       uses: dorny/test-reporter@v2
       if: always()
       with:
         name: Maven Tests
+        # Updated to the correct subfolder path
         path: 'university-registration-system/target/surefire-reports/**/*.xml'
         reporter: java-junit
