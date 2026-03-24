@@ -11,6 +11,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
@@ -22,11 +25,11 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-    # Optional: Keep test results
+    # Optional: Keep test results (surefire report files are under target/surefire-reports)
     - name: Test Report
-      uses: dorny/test-reporter@v1
-      if: success() || failure()
+      uses: dorny/test-reporter@v2
+      if: always()
       with:
         name: Maven Tests
-        path: 'target/surefire-reports/*.xml'
+        path: 'target/surefire-reports/**/*.xml'
         reporter: java-junit
