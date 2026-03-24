@@ -24,18 +24,17 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      # We use -f to tell Maven the pom.xml is inside the subfolder
-      run: mvn -f university-registration-system/pom.xml clean install
-
-    - name: Debug - List target directory
-      # This helps us see if the files exist if it fails again
-      run: find university-registration-system/target -name "*.xml" -type f 2>/dev/null || echo "No XML files found"
+      run: |
+        # This finds the pom.xml wherever it is and runs Maven there
+        POM_PATH=$(find . -name "pom.xml" | head -n 1)
+        echo "Found POM at: $POM_PATH"
+        mvn -f "$POM_PATH" clean install
 
     - name: Test Report
       uses: dorny/test-reporter@v2
       if: always()
       with:
         name: Maven Tests
-        # Updated to the correct subfolder path
+        # The ** ensures it finds the reports even if folder names differ
         path: '**/target/surefire-reports/**/*.xml'
         reporter: java-junit
