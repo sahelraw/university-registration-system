@@ -80,10 +80,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
                     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED -Dmockito.inlineMockMaker=false</argLine>
                 </configuration>
-            </plugin>        </plugins>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
