@@ -8,6 +8,7 @@ import com.uni.demo.major.Major;
 import com.uni.demo.major.MajorRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -86,6 +87,7 @@ public class EnrollmentService {
     }
 
     // ================= FULL UPDATE =================
+   @Transactional
     public void updateEnrollment(Integer enrollmentId, Enrollment updatedEnrollment) {
 
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
@@ -95,27 +97,31 @@ public class EnrollmentService {
         enrollment.setSemester(updatedEnrollment.getSemester());
         enrollment.setYear(updatedEnrollment.getYear());
 
+        // Note: With @Transactional, enrollmentRepository.save() is often 
+        // technically optional because JPA's dirty checking will auto-save 
+        // changes to managed entities at the end of the method.
         enrollmentRepository.save(enrollment);
     }
 
     // ================= PARTIAL UPDATE =================
+    @Transactional
     public void partialUpdateEnrollment(Integer enrollmentId, Enrollment incoming) {
 
-    Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
-            .orElseThrow(() -> new IllegalStateException("enrollment not found"));
+        Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
+                .orElseThrow(() -> new IllegalStateException("enrollment not found"));
 
-    if (incoming.getGrade() != null) {
-        enrollment.setGrade(incoming.getGrade());
+        if (incoming.getGrade() != null) {
+            enrollment.setGrade(incoming.getGrade());
+        }
+
+        if (incoming.getSemester() != null) {
+            enrollment.setSemester(incoming.getSemester());
+        }
+
+        if (incoming.getYear() != null) {
+            enrollment.setYear(incoming.getYear());
+        }
+
+        enrollmentRepository.save(enrollment);
     }
-
-    if (incoming.getSemester() != null) {
-        enrollment.setSemester(incoming.getSemester());
-    }
-
-    if (incoming.getYear() != null) {
-        enrollment.setYear(incoming.getYear());
-    }
-
-    enrollmentRepository.save(enrollment);
-}
 }

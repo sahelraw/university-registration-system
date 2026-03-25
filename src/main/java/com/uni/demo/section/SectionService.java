@@ -38,18 +38,29 @@ public class SectionService {
     // ===== CREATE =====
     public Section addSection(Section section) {
 
+        // 1. Validate that Date and Time are not null
+        if (section.getDate() == null) {
+            throw new IllegalStateException("Section date is required");
+        }
+        if (section.getTime() == null) {
+            throw new IllegalStateException("Section time is required");
+        }
+
+        // 2. Validate Course and Teacher IDs 
         if (section.getCourse() == null || section.getCourse().getId() == null)
             throw new IllegalStateException("Course ID required");
 
         if (section.getTeacher() == null || section.getTeacher().getId() <= 0)
             throw new IllegalStateException("Teacher ID required");
 
+        // 3. Fetch entities from DB
         Course course = courseRepository.findById(section.getCourse().getId())
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
         Teacher teacher = teacherRepository.findById(section.getTeacher().getId())
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
 
+        // 4. Check for scheduling conflicts
         if (sectionRepository.existsByTeacherIdAndDateAndTime(
                 teacher.getId(),
                 section.getDate(),
@@ -57,6 +68,7 @@ public class SectionService {
             throw new IllegalStateException("Teacher already has a section at this time");
         }
 
+        // 5. Set relations and save
         section.setCourse(course);
         section.setTeacher(teacher);
 
