@@ -1,7 +1,10 @@
 package com.uni.demo.course;
 
 import com.uni.demo.major.Major;
+import com.uni.demo.enrollment.Enrollment; 
+import com.uni.demo.section.Section;       
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "course")
@@ -17,6 +20,11 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "major_id")
     private Major major;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Enrollment> enrollments;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Section> sections;
 
     public Course() {}
 
