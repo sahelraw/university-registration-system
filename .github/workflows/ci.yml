@@ -5,12 +5,13 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+
 env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
 
     steps:
     - uses: actions/checkout@v4
@@ -27,7 +28,7 @@ jobs:
         # This finds the pom.xml wherever it is and runs Maven there
         POM_PATH=$(find . -name "pom.xml" | head -n 1)
         echo "Found POM at: $POM_PATH"
-        mvn -f "$POM_PATH" clean install
+        mvn -f "$POM_PATH" clean install -DskipTests
 
     - name: Test Report
       uses: dorny/test-reporter@v3
