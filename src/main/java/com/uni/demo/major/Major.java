@@ -1,7 +1,7 @@
 package com.uni.demo.major;
 
 import jakarta.persistence.*;
-
+//The cascading has been done in PostgreSQL database, so it is not needed here.
 @Entity
 @Table(name = "majors")
 public class Major {
