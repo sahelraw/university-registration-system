@@ -34,8 +34,7 @@ public class Student {
         this.phoneNumber = phoneNumber;
         this.dob = dob;
     }
-
-    // ================= GETTERS =================
+    
 
     public int getId() {
         return id;
@@ -69,7 +68,6 @@ public class Student {
         return calculatedAge;
     }
 
-    // ================= SETTERS =================
 
     public void setName(String name) {
         this.name = name;

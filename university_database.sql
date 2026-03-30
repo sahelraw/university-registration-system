@@ -1,21 +1,10 @@
--- 1. Fix the Enrollments table using the EXACT constraint name from your error
+-- 1. Drop the strict constraint that Postman is citing on the enrollments table
 ALTER TABLE enrollments 
-DROP CONSTRAINT "fkm6ptklbuk36d0q5nb8vpwnj48"; 
+DROP CONSTRAINT "fkntqvli5ggsvcasikjg7al1o6t";
 
+-- 2. Add the new constraint with ON DELETE CASCADE
 ALTER TABLE enrollments 
-ADD CONSTRAINT fk_enrollments_course
-FOREIGN KEY (course_id) 
-REFERENCES course(id) 
-ON DELETE CASCADE;
-
--- 2. Fix the Sections table
--- Since the name for sections is likely also random, let's find it.
--- If the line below fails, check the "Constraints" folder under the sections table in pgAdmin.
-ALTER TABLE sections 
-DROP CONSTRAINT IF EXISTS fk_sections_course; -- Try a generic drop first
-
-ALTER TABLE sections 
-ADD CONSTRAINT fk_sections_course
-FOREIGN KEY (course_id) 
-REFERENCES course(id) 
+ADD CONSTRAINT fk_enrollments_major
+FOREIGN KEY (major_id) 
+REFERENCES majors(id) 
 ON DELETE CASCADE;

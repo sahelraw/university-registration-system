@@ -79,8 +79,7 @@ public class MajorService {
         if (incomingMajor.getDescription() != null && !incomingMajor.getDescription().isEmpty()) {
             existing.setDescription(incomingMajor.getDescription());
         }
-
-        // SAVE the changes
+        
         majorRepository.save(existing);
     }
 }

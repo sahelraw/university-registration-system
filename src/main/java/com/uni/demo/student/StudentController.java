@@ -17,33 +17,26 @@ public class StudentController {
 
     // ================= GET =================
 
-    // Get All Students
     @GetMapping("/studentAll")
     public List<Student> getStudents() {
         return studentService.getStudents();
     }
 
-    // Get Student By ID
     @GetMapping("/{studentId}")
     public Student getStudentById(@PathVariable int studentId) {
         return studentService.getStudentById(studentId);
     }
 
-    // Get Students By Name
     @GetMapping("/studentName") //here we use /studentName endpoint to avoid conflict with getStudentById which also uses @GetMapping("/{studentId}")
     public List<Student> getStudentsByName(@RequestParam String name) {
         return studentService.getStudentsByName(name);
     }
 
-    // ================= POST =================
-
-    // Add New Student
     @PostMapping("/studentAdd")
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
     }
 
-    // ================= DELETE =================
 
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable int studentId) {
@@ -51,8 +44,6 @@ public class StudentController {
         return ResponseEntity.ok("Student " + studentId + " deleted successfully.");
     }
 
-    // ================= PUT FULL UPDATE =================
-    // Update ALL fields except ID
 
     @PutMapping("/{studentId}")
     public void updateStudentFull(
@@ -62,8 +53,6 @@ public class StudentController {
         studentService.updateStudentFull(studentId, student);
     }
 
-    // ================= PUT PARTIAL UPDATE =================
-    // Update specific fields only
 
     @PutMapping("/{studentId}/partial")
 public void updateStudentPartial(

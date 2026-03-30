@@ -63,7 +63,6 @@ public class StudentService {
     }
 
     // ================= UPDATE FULL =================
-    // Update ALL fields except ID
 
     @Transactional
     public void updateStudentFull(int studentId, Student updatedStudent) {
@@ -102,7 +101,6 @@ public class StudentService {
     }
 
     // ================= UPDATE PARTIAL =================
-// Update only selected fields
 
 @Transactional
 public void updateStudentPartial(int studentId, Student incomingStudent) {

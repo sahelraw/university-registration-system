@@ -86,7 +86,7 @@ public class CourseService {
             existing.setName(incoming.getName());
         }
 
-        // Added null check here to prevent NPE
+        // Added null check here to prevent overwriting existing hours with null
         if (incoming.getHours() != null && incoming.getHours() > 0) {
             existing.setHours(incoming.getHours());
         }

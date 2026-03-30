@@ -45,7 +45,7 @@ public class EnrollmentController {
         return ResponseEntity.ok("Enrollment updated successfully");
     }
 
-    // PARTIAL UPDATE (JSON BODY)
+    // PARTIAL UPDATE 
     @PutMapping("/{enrollmentId}/partial")
     public ResponseEntity<String> partialUpdateEnrollment(
             @PathVariable Integer enrollmentId,
