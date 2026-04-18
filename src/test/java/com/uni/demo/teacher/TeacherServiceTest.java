@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import com.uni.demo.entites.Teacher;
+import com.uni.demo.repositories.TeacherRepository;
+import com.uni.demo.services.TeacherService;
 
 import java.util.ArrayList;
 import java.util.List;

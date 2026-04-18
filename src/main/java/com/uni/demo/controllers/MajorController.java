@@ -1,7 +1,10 @@
-package com.uni.demo.major;
+package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Major;
+import com.uni.demo.services.MajorService;
 
 import java.util.List;
 

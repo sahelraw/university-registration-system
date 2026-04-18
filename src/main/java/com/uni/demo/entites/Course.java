@@ -1,6 +1,5 @@
-package com.uni.demo.course;
+package com.uni.demo.entites;
 
-import com.uni.demo.major.Major;
 import jakarta.persistence.*;
 
 

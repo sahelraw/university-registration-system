@@ -1,7 +1,9 @@
-package com.uni.demo.student;
+package com.uni.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.uni.demo.entites.Student;
 
 import java.util.List;
 import java.util.Optional;

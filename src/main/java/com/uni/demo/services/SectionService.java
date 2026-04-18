@@ -1,9 +1,12 @@
-package com.uni.demo.section;
+package com.uni.demo.services;
 
-import com.uni.demo.course.Course;
-import com.uni.demo.course.CourseRepository;
-import com.uni.demo.teacher.Teacher;
-import com.uni.demo.teacher.TeacherRepository;
+import com.uni.demo.entites.Course;
+import com.uni.demo.entites.Section;
+import com.uni.demo.entites.Teacher;
+import com.uni.demo.repositories.CourseRepository;
+import com.uni.demo.repositories.SectionRepository;
+import com.uni.demo.repositories.TeacherRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

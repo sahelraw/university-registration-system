@@ -1,7 +1,10 @@
-package com.uni.demo.major;
+package com.uni.demo.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.uni.demo.entites.Major;
+import com.uni.demo.repositories.MajorRepository;
 
 import java.util.List;
 

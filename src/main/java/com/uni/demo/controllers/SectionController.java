@@ -1,7 +1,10 @@
-package com.uni.demo.section;
+package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Section;
+import com.uni.demo.services.SectionService;
 
 import java.util.List;
 

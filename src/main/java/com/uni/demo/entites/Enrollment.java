@@ -1,8 +1,4 @@
-package com.uni.demo.enrollment;
-
-import com.uni.demo.student.Student;
-import com.uni.demo.course.Course;
-import com.uni.demo.major.Major;
+package com.uni.demo.entites;
 
 import jakarta.persistence.*;
 

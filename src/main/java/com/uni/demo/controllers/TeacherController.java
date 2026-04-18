@@ -1,7 +1,10 @@
-package com.uni.demo.teacher;
+package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Teacher;
+import com.uni.demo.services.TeacherService;
 
 import java.util.List;
 

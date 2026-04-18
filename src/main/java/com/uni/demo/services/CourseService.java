@@ -1,6 +1,9 @@
-package com.uni.demo.course;
-import com.uni.demo.major.Major;
-import com.uni.demo.major.MajorRepository;
+package com.uni.demo.services;
+import com.uni.demo.entites.Course;
+import com.uni.demo.entites.Major;
+import com.uni.demo.repositories.CourseRepository;
+import com.uni.demo.repositories.MajorRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

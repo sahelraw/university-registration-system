@@ -1,4 +1,4 @@
-package com.uni.demo.teacher;
+package com.uni.demo.entites;
 
 import jakarta.persistence.*;
 

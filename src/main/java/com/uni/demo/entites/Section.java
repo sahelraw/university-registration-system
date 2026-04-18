@@ -1,7 +1,5 @@
-package com.uni.demo.section;
+package com.uni.demo.entites;
 
-import com.uni.demo.course.Course;
-import com.uni.demo.teacher.Teacher;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;

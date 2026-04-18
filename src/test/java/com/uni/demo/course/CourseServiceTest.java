@@ -1,7 +1,11 @@
 package com.uni.demo.course;
 
-import com.uni.demo.major.Major;
-import com.uni.demo.major.MajorRepository;
+import com.uni.demo.entites.Course;
+import com.uni.demo.entites.Major;
+import com.uni.demo.repositories.CourseRepository;
+import com.uni.demo.repositories.MajorRepository;
+import com.uni.demo.services.CourseService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

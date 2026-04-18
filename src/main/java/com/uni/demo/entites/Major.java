@@ -1,4 +1,4 @@
-package com.uni.demo.major;
+package com.uni.demo.entites;
 
 import jakarta.persistence.*;
 //The cascading has been done in PostgreSQL database, so it is not needed here.

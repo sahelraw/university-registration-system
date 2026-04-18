@@ -1,8 +1,11 @@
-package com.uni.demo.enrollment;
+package com.uni.demo.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Enrollment;
+import com.uni.demo.services.EnrollmentService;
 
 import java.util.List;
 

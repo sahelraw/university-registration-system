@@ -4,6 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import com.uni.demo.entites.Student;
+import com.uni.demo.repositories.StudentRepository;
+import com.uni.demo.services.StudentService;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

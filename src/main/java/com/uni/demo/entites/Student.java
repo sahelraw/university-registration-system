@@ -1,4 +1,4 @@
-package com.uni.demo.student;
+package com.uni.demo.entites;
 
 import java.time.LocalDate;
 import java.time.Period;

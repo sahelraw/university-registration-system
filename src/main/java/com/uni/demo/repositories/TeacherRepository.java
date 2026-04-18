@@ -1,6 +1,9 @@
-package com.uni.demo.teacher;
+package com.uni.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.uni.demo.entites.Teacher;
+
 import java.util.Optional;
 import java.util.List;
 

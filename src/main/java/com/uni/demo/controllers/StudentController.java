@@ -1,7 +1,10 @@
-package com.uni.demo.student;
+package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Student;
+import com.uni.demo.services.StudentService;
 
 import java.util.List;
 

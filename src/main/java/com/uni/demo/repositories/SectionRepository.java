@@ -1,6 +1,9 @@
-package com.uni.demo.section;
+package com.uni.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.uni.demo.entites.Section;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 

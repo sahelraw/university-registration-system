@@ -1,6 +1,8 @@
-package com.uni.demo.enrollment;
+package com.uni.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.uni.demo.entites.Enrollment;
 
 import java.util.List;
 

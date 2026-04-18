@@ -1,7 +1,10 @@
-package com.uni.demo.course;
+package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.uni.demo.entites.Course;
+import com.uni.demo.services.CourseService;
 
 import java.util.List;
 import java.util.Map;

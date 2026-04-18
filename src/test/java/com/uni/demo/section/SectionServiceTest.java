@@ -1,9 +1,12 @@
 package com.uni.demo.section;
 
-import com.uni.demo.course.Course;
-import com.uni.demo.course.CourseRepository;
-import com.uni.demo.teacher.Teacher;
-import com.uni.demo.teacher.TeacherRepository;
+import com.uni.demo.entites.Course;
+import com.uni.demo.entites.Section;
+import com.uni.demo.entites.Teacher;
+import com.uni.demo.repositories.CourseRepository;
+import com.uni.demo.repositories.SectionRepository;
+import com.uni.demo.repositories.TeacherRepository;
+import com.uni.demo.services.SectionService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

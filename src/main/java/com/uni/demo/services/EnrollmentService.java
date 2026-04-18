@@ -1,11 +1,13 @@
-package com.uni.demo.enrollment;
+package com.uni.demo.services;
 
-import com.uni.demo.student.Student;
-import com.uni.demo.student.StudentRepository;
-import com.uni.demo.course.Course;
-import com.uni.demo.course.CourseRepository;
-import com.uni.demo.major.Major;
-import com.uni.demo.major.MajorRepository;
+import com.uni.demo.entites.Course;
+import com.uni.demo.entites.Enrollment;
+import com.uni.demo.entites.Major;
+import com.uni.demo.entites.Student;
+import com.uni.demo.repositories.CourseRepository;
+import com.uni.demo.repositories.EnrollmentRepository;
+import com.uni.demo.repositories.MajorRepository;
+import com.uni.demo.repositories.StudentRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,13 @@
-package com.uni.demo.student;
+package com.uni.demo.services;
 
 import java.util.List;
 import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.uni.demo.entites.Student;
+import com.uni.demo.repositories.StudentRepository;
 
 @Service
 public class StudentService {

@@ -1,6 +1,8 @@
-package com.uni.demo.course;
+package com.uni.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.uni.demo.entites.Course;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
