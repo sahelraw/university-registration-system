@@ -9,6 +9,7 @@ import com.uni.demo.security.user.UserRepository;
 import com.uni.demo.security.user.Role;
 import com.uni.demo.security.user.User;
 import com.uni.demo.security.config.JwtService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -21,7 +22,14 @@ public class AuthenticationService {
     private final JwtService jwtService; //to inject the JwtService class that we will implement later in ...jwtService.java.. to handle the JWT token generation and validation for authentication and authorization in our application and then we will implement the logic for these operations in the authentication service that we will implement later to allow the user to register a new account and log in to their account in our application and then it will return a response with the user details and a JWT token that can be used for authentication and authorization in our application.
     private final AuthenticationManager authenticationManager; //to inject the AuthenticationManager class that we will implement later in ...config.java.. to handle the authentication process for the user entity such as authenticating the user during login and then we will implement the logic for this operation in the authentication service that we will implement later to allow the user to log in to their account in our application and then it will return a response with the user details and a JWT token that can be used for authentication and authorization in our application.
 
+    @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
+        // Check if email already exists
+        var existingUser = repository.findByEmail(request.getEmail());
+        if (existingUser.isPresent()) {
+            throw new IllegalStateException("Email already registered");
+        }
+        
         //todo implement the logic for this method to allow the user to register a new account in our application and then it will return a response with the registered user details and a JWT token that can be used for authentication and authorization in our application.
         var user = User.builder() //to create a new user object using the builder pattern and then we will set the user details such as email, password, first name, last name, and role from the register request that we will get from the client and then we will save this user to the database using the UserRepository that we will implement later and then it will return a response with the registered user details and a JWT token that can be used for authentication and authorization in our application.
                 .firstname(request.getFirstName())

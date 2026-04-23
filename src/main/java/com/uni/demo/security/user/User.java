@@ -9,6 +9,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,6 +35,7 @@ private String firstname;
 
 private String lastname;
 
+@Column(unique = true) //to ensure that the email is unique in the database
 private String email;
 
 private String password;
