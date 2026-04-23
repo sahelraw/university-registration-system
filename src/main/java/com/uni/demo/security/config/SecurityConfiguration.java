@@ -24,7 +24,7 @@ public class SecurityConfiguration {
             .csrf()
                 .disable() //to disable CSRF protection because we are using JWT token for authentication and we will not use cookies for authentication so we dont need CSRF protection
             .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/register")// "/api/v1/auth/authenticate")
+                .requestMatchers("/api/v1/auth/**")// "/api/v1/auth/authenticate")
                 .permitAll() //to allow all requests to the authentication endpoints without authentication because we need to allow the user to register and login without authentication
                 .anyRequest()
                 .authenticated() //to require authentication for all other requests to secure the endpoints of our application and to allow only authenticated users to access the protected resources of our application
