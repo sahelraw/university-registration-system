@@ -35,7 +35,7 @@ private String firstname;
 
 private String lastname;
 
-@Column(unique = true) //to ensure that the email is unique in the database
+//@Column(unique = true) //to ensure that the email is unique in the database
 private String email;
 
 private String password;

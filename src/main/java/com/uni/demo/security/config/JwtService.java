@@ -17,7 +17,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "feb5c3f37247b286ea0580e08c2b2ded5734a834521cdbccae41c37795cf2f5a";
+    private static final String SECRET_KEY = "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwIUAjJCVeJiooKStf";
     
 public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);//the subject should be the email of the user
