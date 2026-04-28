@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Service
 @RequiredArgsConstructor
@@ -45,20 +46,21 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
-        // fixed
-
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (currentAuth != null && currentAuth.isAuthenticated()) {
-            String tokenUserEmail = currentAuth.getName(); // comes from JWT
+        // ONLY enforce if JWT-based authentication exists
+        if (currentAuth != null
+                && currentAuth.isAuthenticated()
+                && currentAuth.getPrincipal() instanceof UserDetails) {
+
+            String tokenUserEmail = ((UserDetails) currentAuth.getPrincipal()).getUsername();
 
             if (!tokenUserEmail.equals(request.getEmail())) {
                 throw new AccessDeniedException("Token does not match requested user");
             }
         }
 
-        // fixed
-
+        // normal login
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
