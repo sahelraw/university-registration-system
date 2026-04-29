@@ -43,7 +43,7 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
-
+//fixed
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
@@ -59,7 +59,7 @@ public class AuthenticationService {
                 throw new AccessDeniedException("Token does not match requested user");
             }
         }
-
+//fixed
         // normal login
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
