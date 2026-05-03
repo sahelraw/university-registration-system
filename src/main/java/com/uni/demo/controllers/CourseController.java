@@ -1,6 +1,7 @@
 package com.uni.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.uni.demo.entites.Course;
@@ -19,19 +20,22 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // ===== GET ALL =====
+    // ===== GET ALL (ADMIN ONLY) =====
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/all")
     public List<Course> getCourses() {
         return courseService.getCourses();
     }
 
-    // ===== GET BY ID =====
+    // ===== GET BY ID (STUDENT / TEACHER with logic later) =====
+    @PreAuthorize("hasAnyAuthority('STUDENT','TEACHER')")
     @GetMapping("/{courseId}")
     public Course getCourse(@PathVariable Integer courseId) {
         return courseService.getCourseById(courseId);
     }
 
-    // ===== POST (Add course) =====
+    // ===== CREATE (ADMIN ONLY) =====
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public Course addCourse(@RequestBody Map<String, Object> payload) {
         String name = (String) payload.get("name");
@@ -45,7 +49,8 @@ public class CourseController {
         return courseService.addCourse(course, majorId);
     }
 
-    // ===== FULL PUT =====
+    // ===== FULL UPDATE (ADMIN ONLY) =====
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{courseId}")
     public Course updateCourseFull(@PathVariable Integer courseId,
                                    @RequestBody Map<String, Object> payload) {
@@ -60,7 +65,8 @@ public class CourseController {
         return courseService.updateCourseFull(courseId, course, majorId);
     }
 
-    // ===== PARTIAL PUT =====
+    // ===== PARTIAL UPDATE (ADMIN ONLY) =====
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{courseId}/partial")
     public Course updateCoursePartial(@PathVariable Integer courseId,
                                       @RequestBody Map<String, Object> payload) {
@@ -75,10 +81,11 @@ public class CourseController {
         return courseService.updateCoursePartial(courseId, course, majorId);
     }
 
-    // ===== DELETE =====
+    // ===== DELETE (ADMIN ONLY) =====
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<String> deleteCourse(@PathVariable Integer courseId) {
         courseService.deleteCourse(courseId);
-        return ResponseEntity.ok("Course " + courseId + ", Sections and enrollments related to it has been deleted successfully.");
+        return ResponseEntity.ok("Course " + courseId + " deleted successfully.");
     }
 }
