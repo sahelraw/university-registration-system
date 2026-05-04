@@ -21,7 +21,7 @@ public class SectionController {
 
     // ===== GET ALL (ADMIN ONLY) =====
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping
+    @GetMapping("/sectionAll")
     public List<Section> getSections() {
         return sectionService.getSections();
     }

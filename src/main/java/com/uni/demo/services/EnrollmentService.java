@@ -78,6 +78,10 @@ public class EnrollmentService {
         return enrollmentRepository.findByStudentId(studentId);
     }
 
+    public List<Enrollment> getEnrollments() {
+        return enrollmentRepository.findAll();
+    }
+
     // ================= DELETE =================
     public void deleteEnrollment(Integer enrollmentId) {
 
@@ -126,4 +130,5 @@ public class EnrollmentService {
 
         enrollmentRepository.save(enrollment);
     }
+
 }

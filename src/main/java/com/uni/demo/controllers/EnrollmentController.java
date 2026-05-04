@@ -28,6 +28,12 @@ public class EnrollmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Student enrolled successfully");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/enrollmentAll")
+    public List<Enrollment> getEnrollmentsAll() {
+        return enrollmentService.getEnrollments();
+    }
+
     // ================= GET (STUDENT / TEACHER / ADMIN) =================
     @PreAuthorize("hasAnyRole('STUDENT','TEACHER','ADMIN')")
     @GetMapping("/{studentId}")

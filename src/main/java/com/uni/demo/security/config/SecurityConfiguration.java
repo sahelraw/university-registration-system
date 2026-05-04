@@ -41,30 +41,35 @@ public class SecurityConfiguration {
 
             // ================= TEACHER =================
             .requestMatchers(HttpMethod.POST, "/api/v1/teacher/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/v1/teacher/teacherAll").hasRole("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/v1/teacher/**").hasAnyRole("ADMIN", "TEACHER")
             .requestMatchers(HttpMethod.PUT, "/api/v1/teacher/**").hasAnyRole("ADMIN", "TEACHER")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/teacher/**").hasRole("ADMIN")
 
             // ================= MAJOR =================
             .requestMatchers(HttpMethod.POST, "/api/v1/major/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/v1/major/majorAll").hasRole("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/v1/major/**").hasAnyRole("ADMIN", "STUDENT", "TEACHER")
             .requestMatchers(HttpMethod.PUT, "/api/v1/major/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/major/**").hasRole("ADMIN")
 
             // ================= COURSE =================
             .requestMatchers(HttpMethod.POST, "/api/v1/course/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/v1/course/courseAll").hasRole("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/v1/course/**").hasAnyRole("STUDENT", "TEACHER")
             .requestMatchers(HttpMethod.PUT, "/api/v1/course/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/course/**").hasRole("ADMIN")
 
             // ================= SECTION =================
             .requestMatchers(HttpMethod.POST, "/api/v1/section/**").hasAnyRole("ADMIN", "TEACHER")
+            .requestMatchers(HttpMethod.GET, "/api/v1/section/sectionAll").hasAnyRole("ADMIN", "TEACHER")
             .requestMatchers(HttpMethod.GET, "/api/v1/section/**").hasAnyRole("STUDENT", "TEACHER")
             .requestMatchers(HttpMethod.PUT, "/api/v1/section/**").hasAnyRole("ADMIN", "TEACHER")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/section/**").hasAnyRole("ADMIN", "TEACHER")
 
             // ================= ENROLLMENT =================
             .requestMatchers(HttpMethod.POST, "/api/v1/enrollment/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/v1/student/enrollmentAll").hasRole("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/v1/enrollment/**").hasAnyRole("ADMIN", "STUDENT", "TEACHER")
             .requestMatchers(HttpMethod.PUT, "/api/v1/enrollment/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/enrollment/**").hasRole("ADMIN")

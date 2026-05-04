@@ -22,7 +22,7 @@ public class CourseController {
 
     // ===== GET ALL (ADMIN ONLY) =====
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/all")
+    @GetMapping("/courseAll")
     public List<Course> getCourses() {
         return courseService.getCourses();
     }
