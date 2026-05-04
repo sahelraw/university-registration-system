@@ -20,21 +20,21 @@ public class TeacherController {
     }
 
     // ===== GET ALL (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/teacherAll")
     public List<Teacher> getTeachers() {
         return teacherService.getTeachers();
     }
 
     // ===== GET BY ID (TEACHER / ADMIN) =====
-    @PreAuthorize("hasAnyAuthority('TEACHER','ADMIN')")
+    @PreAuthorize("hasAnyRole('TEACHER','ADMIN')")
     @GetMapping("/{teacherId}")
     public Teacher getTeacherById(@PathVariable int teacherId) {
         return teacherService.getTeacherById(teacherId);
     }
 
     // ===== CREATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/teacherAdd")
     public ResponseEntity<String> addTeacher(@RequestBody Teacher teacher) {
         teacherService.addNewTeacher(teacher);
@@ -42,7 +42,7 @@ public class TeacherController {
     }
 
     // ===== DELETE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{teacherId}")
     public ResponseEntity<String> deleteTeacher(@PathVariable int teacherId) {
         teacherService.deleteTeacher(teacherId);
@@ -50,7 +50,7 @@ public class TeacherController {
     }
 
     // ===== FULL UPDATE (ADMIN / TEACHER) =====
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PutMapping("/{teacherId}")
     public ResponseEntity<String> updateTeacherFull(@PathVariable int teacherId,
                              @RequestBody Teacher teacher) {
@@ -59,7 +59,7 @@ public class TeacherController {
     }
 
     // ===== PARTIAL UPDATE (ADMIN / TEACHER) =====
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PutMapping("/{teacherId}/partial")
     public ResponseEntity<String> updateTeacherPartial(@PathVariable int teacherId,
                                 @RequestBody Teacher teacher) {

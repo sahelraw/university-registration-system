@@ -20,21 +20,21 @@ public class MajorController {
     }
 
     // ===== GET ALL (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/majorAll")
     public List<Major> getMajors() {
         return majorService.getMajors();
     }
 
     // ===== GET BY ID (ALL ROLES) =====
-    @PreAuthorize("hasAnyAuthority('STUDENT','TEACHER','ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT','TEACHER','ADMIN')")
     @GetMapping("/{majorId}")
     public Major getMajorById(@PathVariable int majorId) {
         return majorService.getMajorById(majorId);
     }
 
     // ===== CREATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/majorAdd")
     public ResponseEntity<String> addMajor(@RequestBody Major major) {
         majorService.addMajor(major);
@@ -42,7 +42,7 @@ public class MajorController {
     }
 
     // ===== DELETE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{majorId}")
     public ResponseEntity<String> deleteMajor(@PathVariable int majorId) {
         majorService.deleteMajor(majorId);
@@ -50,7 +50,7 @@ public class MajorController {
     }
 
     // ===== FULL UPDATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{majorId}")
     public ResponseEntity<String> updateMajorFull(@PathVariable int majorId,
                            @RequestBody Major major) {
@@ -59,7 +59,7 @@ public class MajorController {
     }
 
     // ===== PARTIAL UPDATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{majorId}/partial")
     public ResponseEntity<String> updateMajorPartial(@PathVariable int majorId,
                               @RequestBody Major major) {

@@ -21,21 +21,21 @@ public class CourseController {
     }
 
     // ===== GET ALL (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<Course> getCourses() {
         return courseService.getCourses();
     }
 
     // ===== GET BY ID (STUDENT / TEACHER with logic later) =====
-    @PreAuthorize("hasAnyAuthority('STUDENT','TEACHER')")
+    @PreAuthorize("hasAnyRole('STUDENT','TEACHER')")
     @GetMapping("/{courseId}")
     public Course getCourse(@PathVariable Integer courseId) {
         return courseService.getCourseById(courseId);
     }
 
     // ===== CREATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Course addCourse(@RequestBody Map<String, Object> payload) {
         String name = (String) payload.get("name");
@@ -50,7 +50,7 @@ public class CourseController {
     }
 
     // ===== FULL UPDATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{courseId}")
     public Course updateCourseFull(@PathVariable Integer courseId,
                                    @RequestBody Map<String, Object> payload) {
@@ -66,7 +66,7 @@ public class CourseController {
     }
 
     // ===== PARTIAL UPDATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{courseId}/partial")
     public Course updateCoursePartial(@PathVariable Integer courseId,
                                       @RequestBody Map<String, Object> payload) {
@@ -82,7 +82,7 @@ public class CourseController {
     }
 
     // ===== DELETE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{courseId}")
     public ResponseEntity<String> deleteCourse(@PathVariable Integer courseId) {
         courseService.deleteCourse(courseId);

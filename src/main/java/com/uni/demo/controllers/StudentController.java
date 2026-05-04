@@ -20,35 +20,35 @@ public class StudentController {
     }
 
     // ================= GET ALL (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/studentAll")
     public List<Student> getStudents() {
         return studentService.getStudents();
     }
 
     // ================= GET BY ID (STUDENT / ADMIN) =================
-    @PreAuthorize("hasAnyAuthority('STUDENT','ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT','ADMIN')")
     @GetMapping("/{studentId}")
     public Student getStudentById(@PathVariable int studentId) {
         return studentService.getStudentById(studentId);
     }
 
     // ================= GET BY NAME (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/studentName")
     public List<Student> getStudentsByName(@RequestParam String name) {
         return studentService.getStudentsByName(name);
     }
 
     // ================= CREATE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/studentAdd")
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
     }
 
     // ================= DELETE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable int studentId) {
         studentService.deleteStudent(studentId);
@@ -56,7 +56,7 @@ public class StudentController {
     }
 
     // ================= FULL UPDATE (ADMIN / STUDENT) =================
-    @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @PutMapping("/{studentId}")
     public void updateStudentFull(
             @PathVariable int studentId,
@@ -66,7 +66,7 @@ public class StudentController {
     }
 
     // ================= PARTIAL UPDATE (ADMIN / STUDENT) =================
-    @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @PutMapping("/{studentId}/partial")
     public void updateStudentPartial(
             @PathVariable int studentId,

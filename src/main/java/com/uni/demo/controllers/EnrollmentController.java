@@ -21,7 +21,7 @@ public class EnrollmentController {
     }
 
     // ================= CREATE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<String> enrollStudent(@RequestBody Enrollment enrollment) {
         enrollmentService.enrollStudent(enrollment);
@@ -29,14 +29,14 @@ public class EnrollmentController {
     }
 
     // ================= GET (STUDENT / TEACHER / ADMIN) =================
-    @PreAuthorize("hasAnyAuthority('STUDENT','TEACHER','ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT','TEACHER','ADMIN')")
     @GetMapping("/{studentId}")
     public List<Enrollment> getEnrollments(@PathVariable Integer studentId) {
         return enrollmentService.getStudentEnrollments(studentId);
     }
 
     // ================= DELETE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{enrollmentId}")
     public ResponseEntity<String> deleteEnrollment(@PathVariable Integer enrollmentId) {
         enrollmentService.deleteEnrollment(enrollmentId);
@@ -44,7 +44,7 @@ public class EnrollmentController {
     }
 
     // ================= FULL UPDATE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{enrollmentId}")
     public ResponseEntity<String> updateEnrollment(
             @PathVariable Integer enrollmentId,
@@ -54,7 +54,7 @@ public class EnrollmentController {
     }
 
     // ================= PARTIAL UPDATE (ADMIN ONLY) =================
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{enrollmentId}/partial")
     public ResponseEntity<String> partialUpdateEnrollment(
             @PathVariable Integer enrollmentId,

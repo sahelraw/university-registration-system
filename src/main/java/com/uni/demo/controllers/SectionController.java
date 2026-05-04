@@ -20,28 +20,28 @@ public class SectionController {
     }
 
     // ===== GET ALL (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<Section> getSections() {
         return sectionService.getSections();
     }
 
     // ===== GET BY ID (STUDENT / TEACHER with logic later) =====
-    @PreAuthorize("hasAnyAuthority('STUDENT','TEACHER')")
+    @PreAuthorize("hasAnyRole('STUDENT','TEACHER')")
     @GetMapping("/{id}")
     public Section getSection(@PathVariable Integer id) {
         return sectionService.getSectionById(id);
     }
 
     // ===== CREATE (ADMIN / TEACHER) =====
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PostMapping
     public Section addSection(@RequestBody Section section) {
         return sectionService.addSection(section);
     }
 
     // ===== FULL UPDATE (ADMIN ONLY) =====
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Section updateFull(@PathVariable Integer id,
                               @RequestBody Section section) {
@@ -49,7 +49,7 @@ public class SectionController {
     }
 
     // ===== PARTIAL UPDATE (ADMIN / TEACHER) =====
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PutMapping("/{id}/partial")
     public Section updatePartial(@PathVariable Integer id,
                                  @RequestBody Section section) {
@@ -57,7 +57,7 @@ public class SectionController {
     }
 
     // ===== DELETE (ADMIN / TEACHER) =====
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSection(@PathVariable Integer id) {
         sectionService.deleteSection(id);

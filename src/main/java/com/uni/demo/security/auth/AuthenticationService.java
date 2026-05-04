@@ -27,12 +27,17 @@ public class AuthenticationService {
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
 
+         // ✅ Validate role exists
+        if (request.getRole() == null) {
+            throw new IllegalStateException("Role must be provided");
+        }
+
         var user = User.builder()
                 .firstname(request.getFirstName())
                 .lastname(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.STUDENT)
+                .role(request.getRole())
                 .build();
 
         repository.save(user);
