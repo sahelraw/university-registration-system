@@ -8,7 +8,7 @@ public class Major {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(unique = true)
     private String name;
@@ -22,7 +22,7 @@ public class Major {
         this.description = description;
     }
 
-    public int getId() { return id; }
+    public Integer getId() { return id; }
 
     public String getName() { return name; }
 
@@ -32,7 +32,7 @@ public class Major {
 
     public void setDescription(String description) { this.description = description; }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

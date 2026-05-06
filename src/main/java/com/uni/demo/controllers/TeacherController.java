@@ -46,7 +46,7 @@ public class TeacherController {
     @DeleteMapping("/{teacherId}")
     public ResponseEntity<String> deleteTeacher(@PathVariable int teacherId) {
         teacherService.deleteTeacher(teacherId);
-        return ResponseEntity.ok("Teacher " + teacherId + " deleted successfully.");
+        return ResponseEntity.ok("Teacher " + teacherId + "and all associated sections deleted successfully.");
     }
 
     // ===== FULL UPDATE (ADMIN / TEACHER) =====

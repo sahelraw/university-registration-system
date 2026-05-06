@@ -46,7 +46,7 @@ public class MajorController {
     @DeleteMapping("/{majorId}")
     public ResponseEntity<String> deleteMajor(@PathVariable int majorId) {
         majorService.deleteMajor(majorId);
-        return ResponseEntity.ok("Major deleted successfully.");
+        return ResponseEntity.ok("Major " + majorId + " and all associated students and courses deleted successfully.");
     }
 
     // ===== FULL UPDATE (ADMIN ONLY) =====

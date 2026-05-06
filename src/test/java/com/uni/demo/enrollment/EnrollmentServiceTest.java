@@ -2,11 +2,10 @@ package com.uni.demo.enrollment;
 
 import com.uni.demo.entites.Course;
 import com.uni.demo.entites.Enrollment;
-import com.uni.demo.entites.Major;
+import com.uni.demo.entites.Section;
 import com.uni.demo.entites.Student;
-import com.uni.demo.repositories.CourseRepository;
 import com.uni.demo.repositories.EnrollmentRepository;
-import com.uni.demo.repositories.MajorRepository;
+import com.uni.demo.repositories.SectionRepository;
 import com.uni.demo.repositories.StudentRepository;
 import com.uni.demo.services.EnrollmentService;
 
@@ -32,25 +31,18 @@ class EnrollmentServiceTest {
     private StudentRepository studentRepository;
 
     @Mock
-    private CourseRepository courseRepository;
-
-    @Mock
-    private MajorRepository majorRepository;
+    private SectionRepository sectionRepository;
 
     @InjectMocks
     private EnrollmentService enrollmentService;
 
     private Enrollment enrollment;
     private Student student;
-    private Course course;
-    private Major major;
+    private Section section;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        major = new Major("IT", "Information Technology");
-        major.setId(1); // Set ID
 
         student = new Student(
                 "Ahmed",
@@ -58,30 +50,21 @@ class EnrollmentServiceTest {
                 "0790000000",
                 LocalDate.of(2000, 1, 1)
         );
-        student.setId(1); // Set ID
+        student.setId(1);
 
-        course = new Course();
-        course.setName("Java");
-        course.setHours(3);
-        course.setMajor(major);
-        course.setId(1); // Set ID
+        section = new Section();
+        section.setId(1);
 
         enrollment = new Enrollment();
         enrollment.setStudent(student);
-        enrollment.setCourse(course);
-        enrollment.setMajor(major);
-        enrollment.setGrade(4);
-        enrollment.setSemester("1");
-        enrollment.setYear(2024);
+        enrollment.setSection(section);
     }
 
     @Test
     void enrollStudent_success() {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        when(majorRepository.findById(1)).thenReturn(Optional.of(major));
-        when(enrollmentRepository.existsByStudentIdAndCourseId(1, 1)).thenReturn(false);
-        when(enrollmentRepository.findByStudentId(1)).thenReturn(new ArrayList<>());
+        when(sectionRepository.findById(1)).thenReturn(Optional.of(section));
+        when(enrollmentRepository.existsByStudentIdAndSectionId(1, 1)).thenReturn(false);
 
         enrollmentService.enrollStudent(enrollment);
 
@@ -97,19 +80,9 @@ class EnrollmentServiceTest {
     }
 
     @Test
-    void enrollStudent_courseNotFound() {
+    void enrollStudent_sectionNotFound() {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.empty());
-
-        assertThrows(IllegalStateException.class,
-                () -> enrollmentService.enrollStudent(enrollment));
-    }
-
-    @Test
-    void enrollStudent_majorNotFound() {
-        when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        when(majorRepository.findById(1)).thenReturn(Optional.empty());
+        when(sectionRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(IllegalStateException.class,
                 () -> enrollmentService.enrollStudent(enrollment));
@@ -118,40 +91,8 @@ class EnrollmentServiceTest {
     @Test
     void enrollStudent_alreadyEnrolled() {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        when(majorRepository.findById(1)).thenReturn(Optional.of(major));
-        when(enrollmentRepository.existsByStudentIdAndCourseId(1, 1)).thenReturn(true);
-
-        assertThrows(IllegalStateException.class,
-                () -> enrollmentService.enrollStudent(enrollment));
-    }
-
-    @Test
-    void enrollStudent_exceedsMaxHours() {
-        Enrollment existingEnrollment = new Enrollment();
-        Course existingCourse = new Course();
-        existingCourse.setHours(16);
-        existingEnrollment.setCourse(existingCourse);
-
-        List<Enrollment> studentEnrollments = new ArrayList<>();
-        studentEnrollments.add(existingEnrollment);
-
-        when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        when(majorRepository.findById(1)).thenReturn(Optional.of(major));
-        when(enrollmentRepository.existsByStudentIdAndCourseId(1, 1)).thenReturn(false);
-        when(enrollmentRepository.findByStudentId(1)).thenReturn(studentEnrollments);
-
-        assertThrows(IllegalStateException.class,
-                () -> enrollmentService.enrollStudent(enrollment));
-    }
-
-    @Test
-    void enrollStudent_courseWithoutMajor() {
-        course.setMajor(null);
-
-        when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
+        when(sectionRepository.findById(1)).thenReturn(Optional.of(section));
+        when(enrollmentRepository.existsByStudentIdAndSectionId(1, 1)).thenReturn(true);
 
         assertThrows(IllegalStateException.class,
                 () -> enrollmentService.enrollStudent(enrollment));
@@ -176,29 +117,39 @@ class EnrollmentServiceTest {
 
         List<Enrollment> result = enrollmentService.getStudentEnrollments(1);
 
-        assertEquals(0, result.size());
+        assertTrue(result.isEmpty());
     }
 
     @Test
     void updateEnrollment_success() {
         Enrollment existing = new Enrollment();
-        existing.setGrade(3);
-        existing.setSemester("1");
-        existing.setYear(2023);
+        existing.setStudent(student);
+        existing.setSection(section);
+
+        Student newStudent = new Student(
+                "Sara",
+                "sara@mail.com",
+                "0791111111",
+                LocalDate.of(2000, 2, 2)
+        );
+        newStudent.setId(2);
+
+        Section newSection = new Section();
+        newSection.setId(2);
 
         Enrollment updated = new Enrollment();
-        updated.setGrade(4);
-        updated.setSemester("2");
-        updated.setYear(2024);
+        updated.setStudent(newStudent);
+        updated.setSection(newSection);
 
         when(enrollmentRepository.findById(1)).thenReturn(Optional.of(existing));
+        when(studentRepository.findById(2)).thenReturn(Optional.of(newStudent));
+        when(sectionRepository.findById(2)).thenReturn(Optional.of(newSection));
         when(enrollmentRepository.save(any())).thenReturn(existing);
 
         enrollmentService.updateEnrollment(1, updated);
 
-        assertEquals(4, existing.getGrade());
-        assertEquals("2", existing.getSemester());
-        assertEquals(2024, existing.getYear());
+        assertEquals(newStudent, existing.getStudent());
+        assertEquals(newSection, existing.getSection());
         verify(enrollmentRepository).save(existing);
     }
 
@@ -211,65 +162,24 @@ class EnrollmentServiceTest {
     }
 
     @Test
-    void partialUpdateEnrollment_updateGradeOnly() {
+    void partialUpdateEnrollment_updateSectionOnly() {
         Enrollment existing = new Enrollment();
-        existing.setGrade(3);
-        existing.setSemester("1");
-        existing.setYear(2023);
+        existing.setStudent(student);
+        existing.setSection(section);
+
+        Section newSection = new Section();
+        newSection.setId(2);
 
         Enrollment incoming = new Enrollment();
-        incoming.setGrade(4);
+        incoming.setSection(newSection);
 
         when(enrollmentRepository.findById(1)).thenReturn(Optional.of(existing));
+        when(sectionRepository.findById(2)).thenReturn(Optional.of(newSection));
         when(enrollmentRepository.save(any())).thenReturn(existing);
 
         enrollmentService.partialUpdateEnrollment(1, incoming);
 
-        assertEquals(4, existing.getGrade());
-        assertEquals("1", existing.getSemester());
-        assertEquals(2023, existing.getYear());
-        verify(enrollmentRepository).save(existing);
-    }
-
-    @Test
-    void partialUpdateEnrollment_updateSemesterOnly() {
-        Enrollment existing = new Enrollment();
-        existing.setGrade(3);
-        existing.setSemester("1");
-        existing.setYear(2023);
-
-        Enrollment incoming = new Enrollment();
-        incoming.setSemester("2");
-
-        when(enrollmentRepository.findById(1)).thenReturn(Optional.of(existing));
-        when(enrollmentRepository.save(any())).thenReturn(existing);
-
-        enrollmentService.partialUpdateEnrollment(1, incoming);
-
-        assertEquals(3, existing.getGrade());
-        assertEquals("2", existing.getSemester());
-        assertEquals(2023, existing.getYear());
-        verify(enrollmentRepository).save(existing);
-    }
-
-    @Test
-    void partialUpdateEnrollment_updateYearOnly() {
-        Enrollment existing = new Enrollment();
-        existing.setGrade(3);
-        existing.setSemester("1");
-        existing.setYear(2023);
-
-        Enrollment incoming = new Enrollment();
-        incoming.setYear(2025);
-
-        when(enrollmentRepository.findById(1)).thenReturn(Optional.of(existing));
-        when(enrollmentRepository.save(any())).thenReturn(existing);
-
-        enrollmentService.partialUpdateEnrollment(1, incoming);
-
-        assertEquals(3, existing.getGrade());
-        assertEquals("1", existing.getSemester());
-        assertEquals(2025, existing.getYear());
+        assertEquals(newSection, existing.getSection());
         verify(enrollmentRepository).save(existing);
     }
 

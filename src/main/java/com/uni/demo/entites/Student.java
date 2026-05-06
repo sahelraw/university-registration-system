@@ -11,9 +11,13 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "major_id")
+    private Major major;
 
     @Column(unique = true)
     private String email;
@@ -36,7 +40,7 @@ public class Student {
     }
     
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -68,6 +72,10 @@ public class Student {
         return calculatedAge;
     }
 
+    public Major getMajor() {
+    return major;
+}
+
 
     public void setName(String name) {
         this.name = name;
@@ -85,9 +93,13 @@ public class Student {
         this.dob = dob;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+    public void setMajor(Major major) {
+    this.major = major;
+}
 
     @Override
     public String toString() {

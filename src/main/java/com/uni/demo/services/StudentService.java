@@ -9,13 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.uni.demo.entites.Student;
 import com.uni.demo.repositories.StudentRepository;
 
+import com.uni.demo.entites.Major;
+import com.uni.demo.repositories.MajorRepository;
+
 @Service
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final MajorRepository majorRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, MajorRepository majorRepository) {
         this.studentRepository = studentRepository;
+        this.majorRepository = majorRepository;
     }
 
     // ================= GET =================
@@ -47,6 +52,11 @@ public class StudentService {
         if (student.getAge() == null || student.getAge() < 18) {
             throw new IllegalStateException("Student must be at least 18 years old");
         }
+         if (student.getMajor() != null && student.getMajor().getId() != null) {
+        Major major = majorRepository.findById(student.getMajor().getId())
+                .orElseThrow(() -> new IllegalStateException("major not found"));
+        student.setMajor(major);
+    }
 
         studentRepository.save(student);
     }
@@ -146,4 +156,5 @@ public void updateStudentPartial(int studentId, Student incomingStudent) {
 
     studentRepository.save(existingStudent);
     }
+    
 }

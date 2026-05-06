@@ -52,7 +52,7 @@ public class StudentController {
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable int studentId) {
         studentService.deleteStudent(studentId);
-        return ResponseEntity.ok("Student " + studentId + " deleted successfully.");
+        return ResponseEntity.ok("Student " + studentId + " and all associated enrollments deleted successfully.");
     }
 
     // ================= FULL UPDATE (ADMIN / STUDENT) =================
